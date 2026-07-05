@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberJo Billing Reference</title>
+    <meta name="description" content="Billing guide for CyberJo technicians and auditors explaining tier-based Value Unit calculations.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header header-compact" role="banner">
+        <div class="container">
+            <h1>CyberJo Billing Reference</h1>
+            <p>A practical guide for technicians and auditors on how CyberJo converts tiered support work into billable Value Units.</p>
+            <p class="site-link"><a class="site-button" href="index.html">Back to support site</a></p>
+        </div>
+    </header>
+
+    <main id="main" role="main">
+        <div class="container">
+            <section class="card" aria-labelledby="billing-principles">
+                <div class="card-header">
+                    <span class="material-icons-outlined">calculate</span>
+                    <h2 id="billing-principles">Billing principles</h2>
+                </div>
+                <p>CyberJo uses Value Units (VU) to bill client work. Each ticket can only be assigned one tier, and that tier must reflect the highest skill level required to complete the task.</p>
+                <p>When lower-tier work is completed inside a higher-tier ticket, the time must be adjusted so the billing reflects the correct VU value rather than being booked at a simple 1:1 rate.</p>
+                <p>Time spent learning a skill should not be charged. Time spent researching specific technical references or gathering the information needed to complete the work can be charged.</p>
+                <div class="formula-pill">VU = time spent ÷ minutes per VU for that tier</div>
+                <p class="muted-text">If work is escalated, the original ticket should be closed and a new ticket should be created at the higher tier if the time has already been booked. If the time has not yet been booked, it should be adjusted before submission.</p>
+            </section>
+
+            <section class="card" aria-labelledby="conversion-rates">
+                <div class="card-header">
+                    <span class="material-icons-outlined">straighten</span>
+                    <h2 id="conversion-rates">VU conversion rates</h2>
+                </div>
+                <ul class="process-list">
+                    <li>120 minutes of Tier 1 work = 1 VU</li>
+                    <li>90 minutes of Tier 2 work = 1 VU</li>
+                    <li>60 minutes of Tier 3 work = 1 VU</li>
+                    <li>45 minutes of Tier 4 work = 1 VU</li>
+                </ul>
+            </section>
+
+            
+
+            <section class="card" aria-labelledby="tier-guide">
+                <div class="card-header">
+                    <span class="material-icons-outlined">category</span>
+                    <h2 id="tier-guide">Tier guide</h2>
+                </div>
+                <div class="tier-list">
+                    <article class="tier-item">
+                        <h3>Tier 1</h3>
+                        <p>Simple work such as phone and WhatsApp support, password resets, confirming issues, basic troubleshooting, and other work that does not need technician input beyond someone who is knows CyberJo and the client information basics, and can handle the basic assistance work. Travel time, waiting time, and idle time is also included in Tier 1 if that time is not spent elsewhere.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Tier 2</h3>
+                        <p>Rookie or junior technician work such as desktop support, basic website updates, and basic implementation tasks.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Tier 3</h3>
+                        <p>Mid-level technicians and analysts handling backend server tasks, escalations, and more technical troubleshooting.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Tier 4</h3>
+                        <p>Senior technicians, architects, project managers, and subject matter experts working on specialised or high-complexity tasks.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="vu" class="card" aria-labelledby="calculator-heading">
+                <div class="card-header">
+                    <span class="material-icons-outlined">timeline</span>
+                    <h2 id="calculator-heading">Billable time calculator</h2>
+                </div>
+                <p>Enter the actual minutes spent and the calculator will convert them into the correct booking time for the final ticket tier.</p>
+
+                <form id="billing-form" class="calculator-grid">
+                    <label for="tier-1-minutes" class="tier-field">
+                        <div class="field-row">
+                            <span class="tier-label-text">Tier 1 minutes</span>
+                            <button type="button" class="info-button tier-info-button" data-tier-info="1" aria-label="Open Tier 1 guidance" aria-expanded="false">ⓘ</button>
+                        </div>
+                        <input id="tier-1-minutes" name="tier-1-minutes" type="number" min="0" step="0.1" value="60" placeholder="e.g. 45">
+                    </label>
+
+                    <label for="tier-2-minutes" class="tier-field">
+                        <div class="field-row">
+                            <span class="tier-label-text">Tier 2 minutes</span>
+                            <button type="button" class="info-button tier-info-button" data-tier-info="2" aria-label="Open Tier 2 guidance" aria-expanded="false">ⓘ</button>
+                        </div>
+                        <input id="tier-2-minutes" name="tier-2-minutes" type="number" min="0" step="0.1" value="30" placeholder="e.g. 30">
+                    </label>
+
+                    <label for="tier-3-minutes" class="tier-field">
+                        <div class="field-row">
+                            <span class="tier-label-text">Tier 3 minutes</span>
+                            <button type="button" class="info-button tier-info-button" data-tier-info="3" aria-label="Open Tier 3 guidance" aria-expanded="false">ⓘ</button>
+                        </div>
+                        <input id="tier-3-minutes" name="tier-3-minutes" type="number" min="0" step="0.1" value="30" placeholder="e.g. 30">
+                    </label>
+
+                    <label for="tier-4-minutes" class="tier-field">
+                        <div class="field-row">
+                            <span class="tier-label-text">Tier 4 minutes</span>
+                            <button type="button" class="info-button tier-info-button" data-tier-info="4" aria-label="Open Tier 4 guidance" aria-expanded="false">ⓘ</button>
+                        </div>
+                        <input id="tier-4-minutes" name="tier-4-minutes" type="number" min="0" step="0.1" value="0" placeholder="e.g. 15">
+                    </label>
+
+                    <div class="field-full final-tier-summary">
+                        <div class="field-row">
+                            <span class="final-tier-label">Final ticket tier</span>
+                            <button type="button" class="info-button" id="tier-info-button" aria-label="Open final tier guidance" aria-expanded="false">ⓘ</button>
+                        </div>
+                        <div id="final-tier-display" class="final-tier-display" aria-live="polite">Not set yet</div>
+                        <div id="final-tier-tags" class="final-tier-tags" aria-live="polite"></div>
+                        <select id="final-tier" name="final-tier" class="visually-hidden">
+                            <option value="1">Tier 1</option>
+                            <option value="2">Tier 2</option>
+                            <option value="3" selected>Tier 3</option>
+                            <option value="4">Tier 4</option>
+                        </select>
+                    </div>
+
+                    <div class="calculator-actions">
+                        <button type="submit">Calculate adjusted time</button>
+                        <button type="reset" class="secondary-button">Clear</button>
+                    </div>
+                </form>
+
+                <p id="form-validation" class="form-validation" aria-live="polite"></p>
+
+                <div id="calculator-result" class="result-card" aria-live="polite">
+                    <div class="result-header">
+                        <div>
+                            <p class="result-label">Result</p>
+                            <p class="result-intro">Use this summary for ticket notes, audits, or client reference.</p>
+                        </div>
+                        <button type="button" class="copy-button" data-action="copy-result">Copy summary</button>
+                    </div>
+
+                    <div class="result-metrics">
+                        <div class="result-metric">
+                            <span class="result-key">Adjusted booking time</span>
+                            <strong class="result-value" data-result="minutes">--</strong>
+                        </div>
+                        <div class="result-metric">
+                            <span class="result-key">Total VU</span>
+                            <strong class="result-value" data-result="vu">--</strong>
+                        </div>
+                        <div class="result-metric">
+                            <span class="result-key">Approx. hours</span>
+                            <strong class="result-value" data-result="hours">--</strong>
+                        </div>
+                    </div>
+
+                    <label class="result-copy-label" for="result-summary-text">
+                        Reference text
+                        <textarea id="result-summary-text" class="result-textarea" readonly spellcheck="false">Enter the values above to see the adjusted booking time.</textarea>
+                    </label>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="billing-rules">
+                <div class="card-header">
+                    <span class="material-icons-outlined">rule</span>
+                    <h2 id="billing-rules">How to apply the rule</h2>
+                </div>
+                <ul class="process-list">
+                    <li>If a ticket is escalated to a higher tier, close the original ticket and create a new one at the higher tier when time has already been logged.</li>
+                    <li>If the time has not been booked yet, adjust the booking before submitting it to the client.</li>
+                    <li>If a higher-tier ticket contains lower-tier work, convert the effort into equivalent time at the final ticket tier using the calculator.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        &copy; 2026 CyberJo. All rights reserved.
+    </footer>
+
+    <div class="modal-backdrop" id="tier-modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tier-modal-title">
+            <button type="button" class="modal-close" id="tier-modal-close" aria-label="Close tier guidance">×</button>
+            <h3 id="tier-modal-title">How to set the final ticket tier</h3>
+            <div id="tier-modal-content"></div>
+        </div>
+    </div>
+
+    <script src="billing-guide.js"></script>
+</body>
+</html>
