@@ -595,16 +595,21 @@ details.small-italic[open] summary::after {
 
 .calculator-grid input,
 .calculator-grid select,
-.calculator-grid button {
-    border: 1px solid var(--border);
-    border-radius: 10px;
+.calculator-grid button,
+.timer-form input,
+.timer-form button,
+.task-controls button,
+.timer-primary-button,
+.timer-secondary-button,
+.timer-link-button {
     padding: 12px 14px;
     font: 1rem/1.4 var(--ff);
     background: var(--bg-light);
     color: var(--text);
 }
 
-.calculator-grid button {
+.calculator-grid button,
+.timer-primary-button {
     cursor: pointer;
     background: linear-gradient(90deg, var(--secondary), #4fd0c7);
     color: var(--bg-dark);
@@ -612,10 +617,18 @@ details.small-italic[open] summary::after {
     border: none;
 }
 
-.calculator-grid .secondary-button {
+.calculator-grid .secondary-button,
+.timer-secondary-button {
     background: transparent;
     color: var(--secondary);
     border: 1px solid rgba(102, 217, 204, 0.35);
+}
+
+.timer-link-button {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 12px 0;
 }
 
 .calculator-actions {
@@ -739,6 +752,160 @@ details.small-italic[open] summary::after {
     color: var(--text-muted);
 }
 
+ .timer-form {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 12px;
+     align-items: end;
+ }
+
+ .timer-input-group {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+     flex: 1 1 280px;
+     font: 600 0.95rem/1.4 var(--ff);
+     color: var(--primary);
+ }
+
+ .timer-input-group input {
+     min-width: 0;
+ }
+
+ .empty-state {
+     padding: 20px 0 0;
+     color: var(--text-muted);
+     font: 500 1rem/1.5 var(--ff);
+ }
+
+ .task-list {
+     display: grid;
+     gap: 12px;
+     margin-top: 16px;
+ }
+
+ .task-card {
+     padding: 16px;
+     border-radius: 12px;
+     border: 1px solid var(--border);
+     background: var(--bg-light);
+ }
+
+ .task-title {
+     font: 700 1rem/1.3 var(--fh);
+     color: var(--primary);
+     margin-bottom: 8px;
+ }
+
+ .task-timer {
+     font: 700 1.35rem/1.3 var(--fh);
+     color: var(--secondary);
+     margin-bottom: 12px;
+ }
+
+ .task-controls {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+ }
+
+ .task-meta {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+     margin-bottom: 10px;
+     color: var(--text-muted);
+     font: 0.95rem/1.4 var(--ff);
+ }
+
+ .task-comment {
+     margin: 0 0 10px;
+     color: var(--text-muted);
+     font: 0.95rem/1.5 var(--ff);
+ }
+
+ .task-summary-output {
+     width: 100%;
+     min-height: 100px;
+     margin-top: 8px;
+     border: 1px solid var(--border);
+     border-radius: 10px;
+     background: var(--bg-light);
+     color: var(--text);
+     padding: 10px 12px;
+     font: 0.9rem/1.5 "SFMono-Regular", Consolas, monospace;
+     resize: vertical;
+     box-sizing: border-box;
+ }
+
+ .task-complete-form {
+     display: grid;
+     gap: 14px;
+ }
+
+ .task-tier-grid {
+     display: grid;
+     grid-template-columns: repeat(2, minmax(0, 1fr));
+     gap: 12px;
+ }
+
+ .task-complete-form label {
+     display: flex;
+     flex-direction: column;
+     gap: 6px;
+     font: 600 0.95rem/1.4 var(--ff);
+     color: var(--primary);
+ }
+
+ .task-complete-form input,
+ .task-complete-form textarea {
+     border: 1px solid var(--border);
+     border-radius: 10px;
+     padding: 10px 12px;
+     font: 1rem/1.4 var(--ff);
+     background: var(--bg-light);
+     color: var(--text);
+ }
+
+ .task-comment-group textarea {
+     min-height: 92px;
+     resize: vertical;
+ }
+
+ .task-total-minutes {
+     padding: 8px 10px;
+     border-radius: 10px;
+     background: rgba(102, 217, 204, 0.12);
+     color: var(--secondary);
+     font: 600 0.95rem/1.4 var(--ff);
+ }
+
+ .modal-actions {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+ }
+
+ .summary-actions {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 12px;
+     margin: 12px 0 10px;
+ }
+
+ .summary-output {
+     width: 100%;
+     min-height: 140px;
+     border: 1px solid var(--border);
+     border-radius: 10px;
+     background: var(--bg-light);
+     color: var(--text);
+     padding: 12px 14px;
+     font: 0.95rem/1.5 "SFMono-Regular", Consolas, monospace;
+     resize: vertical;
+     box-sizing: border-box;
+ }
+
  .footer {
      text-align: center;
      padding: 40px 20px;
@@ -770,5 +937,19 @@ details.small-italic[open] summary::after {
      .result-header {
          flex-direction: column;
          align-items: flex-start;
+     }
+
+     .timer-form {
+         flex-direction: column;
+         align-items: stretch;
+     }
+
+     .task-controls {
+         flex-direction: column;
+         align-items: stretch;
+     }
+
+     .task-tier-grid {
+         grid-template-columns: 1fr;
      }
  }

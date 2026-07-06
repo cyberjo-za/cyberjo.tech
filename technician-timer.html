@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberJo Technician Timer</title>
+    <meta name="description" content="A simple local-only task timer for CyberJo technicians to track time before logging it to the ticketing system.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header header-compact" role="banner">
+        <div class="container">
+            <h1>CyberJo technician timer</h1>
+            <p>Keep a quick running list of tasks, track time with one tap, and copy the result when you are ready to log it.</p>
+            <p class="site-link"><a class="site-button" href="billing-guide.html">Open billing guide</a></p>
+            <p class="site-note">This tool stores everything in your browser only. Refreshing or clearing browser data will remove your tasks.</p>
+        </div>
+    </header>
+
+    <main id="main" role="main">
+        <div class="container">
+            <section class="card" aria-labelledby="add-task-heading">
+                <div class="card-header">
+                    <span class="material-icons-outlined">add_task</span>
+                    <h2 id="add-task-heading">Add a task</h2>
+                </div>
+                <form id="task-form" class="timer-form">
+                    <label class="timer-input-group" for="task-name">
+                        Task name
+                        <input id="task-name" name="task-name" type="text" maxlength="80" placeholder="e.g. DNS issue for Client A" required>
+                    </label>
+                    <button type="submit" class="timer-primary-button">Add task</button>
+                </form>
+            </section>
+
+            <section class="card" aria-labelledby="task-list-heading">
+                <div class="card-header">
+                    <span class="material-icons-outlined">timer</span>
+                    <h2 id="task-list-heading">Tasks</h2>
+                </div>
+                <div id="tasks-empty" class="empty-state">No tasks yet. Add one above to get started.</div>
+                <div id="task-list" class="task-list"></div>
+            </section>
+
+            <section class="card" aria-labelledby="summary-heading">
+                <div class="card-header">
+                    <span class="material-icons-outlined">content_copy</span>
+                    <h2 id="summary-heading">Quick summary</h2>
+                </div>
+                <p class="muted-text">Use this when you are ready to paste the tracked time into your ticketing system.</p>
+                <div class="summary-actions">
+                    <button type="button" id="copy-summary" class="timer-secondary-button">Copy summary</button>
+                    <button type="button" id="clear-all" class="timer-link-button">Clear all</button>
+                </div>
+                <textarea id="summary-output" class="summary-output" readonly spellcheck="false">No tasks recorded yet.</textarea>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        &copy; 2026 CyberJo. All rights reserved.
+    </footer>
+
+    <div class="modal-backdrop" id="task-complete-modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="task-complete-title">
+            <button type="button" class="modal-close" id="task-complete-close" aria-label="Close task completion">×</button>
+            <h3 id="task-complete-title">Finish task</h3>
+            <p>Capture the tier breakdown and a short note so the task is ready to log.</p>
+            <form id="task-complete-form" class="task-complete-form">
+                <div class="task-tier-grid">
+                    <label>
+                        Tier 1 minutes
+                        <input type="number" min="0" step="0.1" name="tier-1-minutes" placeholder="0">
+                    </label>
+                    <label>
+                        Tier 2 minutes
+                        <input type="number" min="0" step="0.1" name="tier-2-minutes" placeholder="0">
+                    </label>
+                    <label>
+                        Tier 3 minutes
+                        <input type="number" min="0" step="0.1" name="tier-3-minutes" placeholder="0">
+                    </label>
+                    <label>
+                        Tier 4 minutes
+                        <input type="number" min="0" step="0.1" name="tier-4-minutes" placeholder="0">
+                    </label>
+                </div>
+
+                <label class="task-comment-group" for="task-comment">
+                    Comment
+                    <textarea id="task-comment" name="task-comment" rows="3" placeholder="Add any note that helps explain the work or billing"></textarea>
+                </label>
+
+                <div id="task-total-minutes" class="task-total-minutes">Total time worked: 0 minutes</div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="timer-primary-button">Save task summary</button>
+                    <button type="button" id="task-complete-cancel" class="timer-secondary-button">Cancel</button>
+                </div>
+                <p id="task-complete-error" class="form-validation is-error" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="technician-timer.js"></script>
+</body>
+</html>
