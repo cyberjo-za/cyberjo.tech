@@ -10,6 +10,7 @@ const resultBox = document.getElementById('calculator-result');
 const tierSelect = document.getElementById('final-tier');
 const finalTierDisplay = document.getElementById('final-tier-display');
 const finalTierTags = document.getElementById('final-tier-tags');
+const totalTimeDisplay = document.getElementById('total-time-display');
 const tierInfoButton = document.getElementById('tier-info-button');
 const tierModal = document.getElementById('tier-modal');
 const tierModalClose = document.getElementById('tier-modal-close');
@@ -60,13 +61,25 @@ if (form && resultBox) {
         }
     }
 
-    function syncFinalTier() {
+    function syncTotalTime() {
         const tierMinutes = {
             1: Number(document.getElementById('tier-1-minutes').value) || 0,
             2: Number(document.getElementById('tier-2-minutes').value) || 0,
             3: Number(document.getElementById('tier-3-minutes').value) || 0,
             4: Number(document.getElementById('tier-4-minutes').value) || 0
         };
+
+        const totalMinutes = Object.values(tierMinutes).reduce((sum, value) => sum + value, 0);
+
+        if (totalTimeDisplay) {
+            totalTimeDisplay.textContent = `${Number(totalMinutes.toFixed(2))} minutes`;
+        }
+
+        return tierMinutes;
+    }
+
+    function syncFinalTier() {
+        const tierMinutes = syncTotalTime();
 
         const highestTierWithTime = Object.entries(tierMinutes)
             .filter(([, minutes]) => minutes > 0)
@@ -178,6 +191,7 @@ if (form && resultBox) {
 
     form.querySelectorAll('input[id^="tier-"]').forEach((input) => {
         input.addEventListener('input', function () {
+            syncTotalTime();
             updateTierTags();
             validateTierSelection();
         });
@@ -212,6 +226,7 @@ if (form && resultBox) {
         const roundedVu = Number(totalVu.toFixed(2));
         const roundedMinutes = Number(adjustedMinutes.toFixed(2));
         const roundedHours = Number(adjustedHours.toFixed(2));
+        const totalInputMinutes = Number(Object.values(tierMinutes).reduce((sum, value) => sum + value, 0).toFixed(2));
 
         const breakdownLines = Object.entries(tierMinutes)
             .filter(([, minutes]) => minutes > 0)
@@ -229,6 +244,7 @@ if (form && resultBox) {
             summaryText.value = [
                 'CyberJo billing summary',
                 `Final ticket tier: Tier ${finalTier}`,
+                `Total time spent: ${totalInputMinutes} minutes`,
                 'Time breakdown:',
                 ...breakdownLines,
                 `Total VU: ${roundedVu}`,
@@ -270,6 +286,7 @@ if (form && resultBox) {
         });
     }
 
+    syncTotalTime();
     syncFinalTier();
     updateTierTags();
     resetResult();

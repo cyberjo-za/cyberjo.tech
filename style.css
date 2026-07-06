@@ -439,6 +439,24 @@ details.small-italic[open] summary::after {
     color: var(--primary);
 }
 
+.total-time-summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0 2px;
+}
+
+.total-time-label {
+    font: 600 0.9rem/1.4 var(--ff);
+    color: var(--text-muted);
+}
+
+.total-time-value {
+    font: 700 1rem/1.4 var(--fh);
+    color: var(--primary);
+}
+
 .final-tier-display {
     font: 700 1.05rem/1.4 var(--fh);
     color: var(--secondary);
