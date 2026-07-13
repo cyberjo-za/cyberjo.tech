@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberJo Client Ticket Process</title>
+    <meta name="description" content="A practical guide for CyberJo technicians and clients on how support tickets are handled, tracked, and resolved from initial contact to closure.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom Styles for Priority & SLA Widgets -->
+    <style>
+        /* Widget Wrapper for horizontal scrolling on mobile */
+        .cj-widget-wrapper {
+            margin-top: 1.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Priority Matrix Heatmap */
+        .cj-matrix {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+            min-width: 600px;
+        }
+        .cj-matrix th, .cj-matrix td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .cj-matrix th {
+            background: #1b211e;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cj-matrix th:first-child, .cj-matrix td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #ffffff;
+            background: #1b211e;
+        }
+        .cj-pill {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        .pill-vlow { background: #94a3b8; }
+        .pill-low { background: #10b981; }
+        .pill-med { background: #f59e0b; color: #78350f; box-shadow: 0 2px 4px rgba(245,158,11,0.2); }
+        .pill-high { background: #f97316; }
+        .pill-crit { background: #ef4444; box-shadow: 0 2px 6px rgba(239,68,68,0.3); }
+
+        /* SLA Response Time Cards */
+        .cj-sla-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        .cj-sla-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cj-sla-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -5px rgba(0,0,0,0.1);
+        }
+        .cj-sla-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+        }
+        .cj-sla-card.sla-vlow::before { background: #94a3b8; }
+        .cj-sla-card.sla-low::before { background: #10b981; }
+        .cj-sla-card.sla-med::before { background: #f59e0b; }
+        .cj-sla-card.sla-high::before { background: #f97316; }
+        .cj-sla-card.sla-crit::before { background: #ef4444; }
+        
+        .sla-time {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .sla-unit {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #64748b;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+        .sla-label {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .sla-vlow .sla-label { color: #64748b; background: #f1f5f9; }
+        .sla-low .sla-label { color: #047857; background: #d1fae5; }
+        .sla-med .sla-label { color: #b45309; background: #fef3c7; }
+        .sla-high .sla-label { color: #c2410c; background: #ffedd5; }
+        .sla-crit .sla-label { color: #b91c1c; background: #fee2e2; }
+    </style>
+</head>
+<body>
+    <header class="header header-compact" role="banner">
+        <div class="container">
+            <h1>CyberJo Client Ticket Process</h1>
+            <p>A practical guide for technicians and clients on how CyberJo handles, tracks, and resolves support tickets, ensuring efficient collaboration and prompt responses.</p>
+            <p class="site-link"><a class="site-button" href="index.html">Back to support site</a></p>
+        </div>
+    </header>
+
+    <main id="main" role="main">
+        <div class="container">
+            
+            <section class="card" aria-labelledby="handling-principles">
+                <div class="card-header">
+                    <span class="material-icons-outlined">support_agent</span>
+                    <h2 id="handling-principles">Ticket handling principles</h2>
+                </div>
+                <p>CyberJo is committed to resolving client support tickets efficiently. We work on a best-effort basis to ensure day-to-day issues are handled promptly and do not drag on unnecessarily.</p>
+                <p>While we do not enforce strict time limits on how long a complex resolution might take, our Service Level Agreements (SLAs) strictly enforce <strong>response times</strong>. This guarantees that clients are never left wondering if their request was received or if a technician is looking into it.</p>
+                <p>All communication (Email, WhatsApp, and Phone) is logged centrally within the ticketing system. Technical troubleshooting is kept in private internal notes, while public updates remain concise and non-technical.</p>
+                <div class="formula-pill">Best Effort Resolution + Enforced Response Times</div>
+                <div class="formula-pill">Average resolution time: 1 - 3 business days.</div>
+                <p class="muted-text">If a task is complex and requires more time, it is broken down into smaller child tickets under a parent ticket to track progress effectively without letting the main queue stagnate.</p>
+            </section>
+
+            <section class="card" aria-labelledby="priority-matrix">
+                <div class="card-header">
+                    <span class="material-icons-outlined">grid_view</span>
+                    <h2 id="priority-matrix">How we prioritize issues</h2>
+                </div>
+                <p>Not all issues are created equal. We determine the priority level of a ticket by evaluating the <strong>urgency</strong> of the request against the <strong>impact</strong> it has on production, as well as the role of the user affected.</p>
+                
+                <div class="cj-widget-wrapper">
+                    <table class="cj-matrix">
+                        <thead>
+                            <tr>
+                                <th>Affected Role</th>
+                                <th>Not Urgent &<br>Not Important</th>
+                                <th>Urgent &<br>Not Important</th>
+                                <th>Urgent &<br>Important</th>
+                                <th>Critical</th>
+                            </tr>
+                            <tr>
+                                <th style="font-weight:400; font-size:0.75rem; color:#64748b; text-transform:none; letter-spacing:normal;">Impact / Risk &#8595;</th>
+                                <th style="font-weight:400; font-size:0.75rem; color:#64748b; text-transform:none; letter-spacing:normal;">No risk / no real impact</th>
+                                <th style="font-weight:400; font-size:0.75rem; color:#64748b; text-transform:none; letter-spacing:normal;">No risk / low impact</th>
+                                <th style="font-weight:400; font-size:0.75rem; color:#64748b; text-transform:none; letter-spacing:normal;">Low risk / &lt;50% impact</th>
+                                <th style="font-weight:400; font-size:0.75rem; color:#64748b; text-transform:none; letter-spacing:normal;">High risk / &ge;50% impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>User</td>
+                                <td><span class="cj-pill pill-vlow">Very Low</span></td>
+                                <td><span class="cj-pill pill-low">Low</span></td>
+                                <td><span class="cj-pill pill-med">Medium</span></td>
+                                <td><span class="cj-pill pill-high">High</span></td>
+                            </tr>
+                            <tr>
+                                <td>Manager / Director</td>
+                                <td><span class="cj-pill pill-low">Low</span></td>
+                                <td><span class="cj-pill pill-low">Low</span></td>
+                                <td><span class="cj-pill pill-med">Medium</span></td>
+                                <td><span class="cj-pill pill-crit">Critical</span></td>
+                            </tr>
+                            <tr>
+                                <td>System / Vendor</td>
+                                <td><span class="cj-pill pill-vlow">Very Low</span></td>
+                                <td><span class="cj-pill pill-low">Low</span></td>
+                                <td><span class="cj-pill pill-high">High</span></td>
+                                <td><span class="cj-pill pill-crit">Critical</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="response-times">
+                <div class="card-header">
+                    <span class="material-icons-outlined">speed</span>
+                    <h2 id="response-times">Guaranteed response times</h2>
+                </div>
+                <p>Once a priority level is assigned, it dictates our maximum allowed response time during business hours. This is the time it takes for a technician to acknowledge the ticket and begin initial triage or communication.</p>
+                
+                <div class="cj-sla-grid">
+                    <div class="cj-sla-card sla-crit">
+                        <span class="sla-time">2</span>
+                        <span class="sla-unit">Business Hours</span>
+                        <span class="sla-label">Critical</span>
+                    </div>
+                    <div class="cj-sla-card sla-high">
+                        <span class="sla-time">3</span>
+                        <span class="sla-unit">Business Hours</span>
+                        <span class="sla-label">High</span>
+                    </div>
+                    <div class="cj-sla-card sla-med">
+                        <span class="sla-time">4</span>
+                        <span class="sla-unit">Business Hours</span>
+                        <span class="sla-label">Medium</span>
+                    </div>
+                    <div class="cj-sla-card sla-low">
+                        <span class="sla-time">10</span>
+                        <span class="sla-unit">Business Hours</span>
+                        <span class="sla-label">Low</span>
+                    </div>
+                    <div class="cj-sla-card sla-vlow">
+                        <span class="sla-time">10</span>
+                        <span class="sla-unit">Business Days</span>
+                        <span class="sla-label">Very Low</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="five-step-process">
+                <div class="card-header">
+                    <span class="material-icons-outlined">format_list_numbered</span>
+                    <h2 id="five-step-process">The 5-step response process</h2>
+                </div>
+                <p>Every client-initiated ticket follows this standardized lifecycle to ensure prompt attention and clear expectations.</p>
+                
+                <div class="tier-list">
+                    <article class="tier-item">
+                        <h3>Step 1: Acknowledge & Triage</h3>
+                        <p>The system instantly sends an automated reply to confirm receipt. The ticket is then assessed against our priority matrix, which triggers the appropriate response time window.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Step 2: First Contact</h3>
+                        <p>Within the guaranteed response window, the assigned technician replies to the ticket and initiates contact via WhatsApp or a direct phone call. If client input is required to proceed, the ticket status is changed to <strong>Waiting</strong>.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Step 3: Troubleshoot & Update</h3>
+                        <p>The technician actively works on the issue. All technical steps and diagnostics are logged in private internal notes. The client receives concise, non-technical public updates regarding progress and next steps.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Step 4: Follow-Up on Silence</h3>
+                        <p>If we are waiting on the client, we follow up after about <strong>3 to 8 business hours</strong>. Depending on the complexity of the issue, a second follow-up is sent after another <strong>3 to 8 business hours</strong>. If communication remains poor, our 3-Strike Policy is initiated.</p>
+                    </article>
+                    <article class="tier-item">
+                        <h3>Step 5: Resolve, Escalate, or Close</h3>
+                        <p>Once fixed, the ticket is marked as <strong>Resolved</strong>. If the client remains unresponsive or uncooperative, the ticket is escalated to management or <strong>Closed</strong> in accordance with our communication policy.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="three-strikes">
+                <div class="card-header">
+                    <span class="material-icons-outlined">priority_high</span>
+                    <h2 id="three-strikes">The 3-Strike communication policy</h2>
+                </div>
+                <p>Resolving technical issues requires collaboration. We believe in efficient partnerships and do not let day-to-day issues drag on due to poor communication. If we require device access or specific input and receive weak communication or lack of response, we enforce a strict 3-strike rule.</p>
+                
+                <ul class="process-list">
+                    <li><strong>What counts as a strike?</strong> A strike is issued when a contact misses an agreed-upon appointment time, fails to respond to our WhatsApp messages after 8 business hours, or fails to provide requested access or information.</li>
+                    <li><strong>Strike 1 & 2:</strong> We document the missed communication internally and attempt to re-engage the contact to get the issue moving again.</li>
+                    <li><strong>Strike 3 (Escalation & Closure):</strong> We immediately cease direct communication attempts with the unresponsive contact. The communication breakdown is reported to the contact's manager for correction, and the ticket is closed.</li>
+                </ul>
+
+                <div class="formula-pill">Minor issues are dropped completely after 3 strikes.</div>
+                
+                <p class="muted-text">For critical or major issues, work will only resume once the contact's manager intervenes to establish a firm, reliable time slot for our technicians to get the issue resolved. We will not struggle with unresponsive contacts; we require serious communication to deliver serious results.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        &copy; 2026 CyberJo. All rights reserved.
+    </footer>
+
+</body>
+</html>
